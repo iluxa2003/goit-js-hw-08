@@ -1,9 +1,13 @@
 import throttle from 'lodash.throttle';
-const _ = require('lodash');
+
 const button = document.querySelector('button');
 const emailInput = document.querySelector('input[name="email"]');
 const messageInput = document.querySelector('textarea[name="message"]');
-
+const form = document.querySelector('.feedback-form');
+const settings = {
+  email: '',
+  message: '',
+};
 try {
   const ourData = localStorage.getItem('feedback-form-state');
   const parsedSettings = JSON.parse(ourData);
@@ -12,15 +16,19 @@ try {
 } catch {}
 const check = event => {
   event.preventDefault();
-  const settings = {
-    email: emailInput.value,
-    message: messageInput.value,
-  };
-  localStorage.setItem('feedback-form-state', JSON.stringify(settings));
   const ourData = localStorage.getItem('feedback-form-state');
   const parsedSettings = JSON.parse(ourData);
   console.log(parsedSettings);
-  // emailInput.reset();???????
-  // messageInput.reset();??????
+  form.reset();
 };
-button.addEventListener('click', _.throttle(check, 500));
+const email = event => {
+  settings.email = emailInput.value;
+  localStorage.setItem('feedback-form-state', JSON.stringify(settings));
+};
+const message = event => {
+  settings.message = messageInput.value;
+  localStorage.setItem('feedback-form-state', JSON.stringify(settings));
+};
+button.addEventListener('click', check);
+emailInput.addEventListener('input',throttle(email, 500))
+messageInput.addEventListener('input',throttle(message, 500))

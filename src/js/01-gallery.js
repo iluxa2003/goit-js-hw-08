@@ -31,11 +31,6 @@ const gallery = document.querySelector(".gallery");
   </a>
 </div>`)
 
-//  for(const img of image){
-//   gallery.insertAdjacentHTML("afterbegin",img);
-//  }
  gallery.insertAdjacentHTML("afterbegin",image.join(""));
-//  var lightbox = $('.gallery a').simpleLightbox({captionsData:"alt",captionDelay:250});
-// SimpleLightbox('.galery a',{})
  var lightbox = new SimpleLightbox('.gallery a', {captionsData:"alt",captionDelay:250});
 
