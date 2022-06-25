@@ -20,15 +20,13 @@ const check = event => {
   const parsedSettings = JSON.parse(ourData);
   console.log(parsedSettings);
   form.reset();
+  messageInput.value = "";
 };
-const email = event => {
-  settings.email = emailInput.value;
-  localStorage.setItem('feedback-form-state', JSON.stringify(settings));
-};
+
 const message = event => {
+  settings.email = emailInput.value;
   settings.message = messageInput.value;
   localStorage.setItem('feedback-form-state', JSON.stringify(settings));
 };
-button.addEventListener('click', check);
-emailInput.addEventListener('input',throttle(email, 500))
-messageInput.addEventListener('input',throttle(message, 500))
+form.addEventListener('submit', check);
+form.addEventListener('input',throttle(message, 500))
